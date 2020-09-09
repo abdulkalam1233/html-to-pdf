@@ -1,6 +1,6 @@
 {
   "name": "@vinevitable/html-to-pdf",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert multiple html strings to pdf",
   "main": "index.js",
   "scripts": {
