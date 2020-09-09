@@ -1,0 +1,29 @@
+{
+  "name": "@vinevitable/html-to-pdf",
+  "version": "1.0.0",
+  "description": "Convert multiple html strings to pdf",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdulkalam1233/html-to-pdf.git"
+  },
+  "keywords": [
+    "htmlpdf",
+    "html2pdf",
+    "htmltopdf",
+    "html-to-pdf"
+  ],
+  "author": "abdulkalam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdulkalam1233/html-to-pdf/issues"
+  },
+  "homepage": "https://github.com/abdulkalam1233/html-to-pdf#readme",
+  "dependencies": {
+    "html-pdf": "^2.2.0",
+    "pdf-lib": "^1.10.0"
+  }
+}
