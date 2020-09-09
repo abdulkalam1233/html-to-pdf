@@ -1,30 +1,9 @@
 const fs = require('fs');
-const htmlPdf = require('html-pdf');
 const { PDFDocument } = require('pdf-lib');
-
-function htmlToPdfBuffer(html) {
-    return new Promise((resolve, reject) => {
-        htmlPdf.create(html, {
-            format: 'A4',
-            quality: '100',
-            border: {
-                top: '0.3in',            // default is 0, units: mm, cm, in, px
-                right: '0.3in',
-                bottom: '0.3in',
-                left: '0.3in',
-            },
-        }).toBuffer((error, res) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(res);
-            }
-        });
-    });
-}
+const { htmlToPdfFile, htmlToPdfBuffer } = require('./lib')
 
 // pass array of html strings and path to save file
-async function savePdf(htmlStrings, filePath) {
+async function convertHtmlStringsToPdf(htmlStrings, filePath) {
     try {
         if (!filePath.includes('.pdf')) {
             filePath += '.pdf';
@@ -52,4 +31,36 @@ async function savePdf(htmlStrings, filePath) {
     }
 }
 
-module.exports = savePdf;
+async function convertHtmlStringToPdf(htmlString, filePath) {
+    try {
+        if (!filePath.includes('.pdf')) {
+            filePath += '.pdf';
+        }
+        await htmlToPdfFile(htmlString, filePath);
+        return filePath;
+    } catch (error) {
+        console.error('ERROR occurred in utils.file.savepdf().');
+        console.error(error);
+        throw error;
+    }
+}
+
+async function convertHtmlFileToPdf(htmlFilePath, savePdfPath) {
+    try {
+        if (!savePdfPath.includes('.pdf')) {
+            savePdfPath += '.pdf';
+        }
+        await htmlToPdfFile(fs.readFileSync(htmlFilePath).toString('utf8'), savePdfPath);
+        return savePdfPath;
+    } catch (error) {
+        console.error('ERROR occurred in utils.file.savepdf().');
+        console.error(error);
+        throw error;
+    }
+}
+
+module.exports = {
+    convertHtmlStringsToPdf,
+    convertHtmlStringToPdf,
+    convertHtmlFileToPdf,
+};

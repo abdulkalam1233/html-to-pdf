@@ -1,4 +1,5 @@
-const savePdf = require('../index');
+const path = require("path");
+const { convertHtmlStringsToPdf, convertHtmlStringToPdf, convertHtmlFileToPdf } = require('../index');
 
 const htmls = [`
     <!DOCTYPE html>
@@ -27,4 +28,36 @@ const htmls = [`
                 </html>`
 ]
 
-savePdf(htmls, 'example.pdf')
+async function generateHtmlFromStrings() {
+    try {
+        await convertHtmlStringsToPdf(htmls, 'multi.pdf')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function generateHtmlFromString() {
+    try {
+        await convertHtmlStringToPdf(htmls[0], 'single.pdf')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function generateHtmlFromFile() {
+    try {
+        await convertHtmlFileToPdf(path.resolve('.', 'examples/example.html'), 'fromFile.pdf')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+(async () => {
+    try {
+        await generateHtmlFromStrings();
+        await generateHtmlFromString();
+        await generateHtmlFromFile();
+    } catch (error) {
+        console.log(error);
+    }
+})()
